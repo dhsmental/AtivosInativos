@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Tutores & Cursistas - Direitos Humanos e Saúde Mental</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Estilos específicos para visualização A4 na tela */
+        .page-a4 {
+            width: 100%;
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 3mm 4mm;
+            box-sizing: border-box;
+        }
+
+        /* REGRAS DE IMPRESSÃO: Oculta TUDO exceto o container A4 */
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            .page-a4, .page-a4 * {
+                visibility: visible !important;
+            }
+            .page-a4 {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-shadow: none !important;
+                border: none !important;
+                margin: 0 !important;
+                padding: 2mm !important;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-md no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2.5 bg-emerald-600 rounded-xl text-white shadow-lg shadow-emerald-900/50">
+                        <i class="fa-solid fa-user-graduate text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white">Gestão de Tutores & Cursistas</h1>
+                            <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs px-2.5 py-0.5 rounded-full font-medium">Moodle</span>
+                        </div>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-0.5">Curso de Direitos Humanos e Saúde Mental • Atualizado até 14/09/2026</p>
+                    </div>
+                </div>
+
+                <!-- Action Header Buttons -->
+                <div class="flex items-center gap-2 no-print self-start md:self-auto">
+                    
+                    <button onclick="window.print()" class="inline-flex items-center gap-2 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium rounded-lg transition shadow-sm shadow-emerald-900/30">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Imprimir A4</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- KPI Cards Section (4 Quadros Centralizados) -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 no-print">
+            
+            <!-- Card 1: Total Tutores -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
+                <div class="flex items-center justify-between text-slate-500 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider">Total Tutores</span>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <span class="text-3xl font-extrabold text-slate-900" id="kpi-tutores">70</span>
+                    <span class="text-xs font-medium text-slate-500">Equipe ativa</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
+                    <span>Média por tutor:</span>
+                    <span class="font-semibold text-slate-700">59.7 cursistas</span>
+                </div>
+            </div>
+
+            <!-- Card 2: Total Geral Cursistas -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition">
+                <div class="flex items-center justify-between text-slate-500 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider">Base Cursistas</span>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <span class="text-3xl font-extrabold text-slate-900" id="kpi-total">4.179</span>
+                    <span class="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">Total Geral</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
+                    <span>Inscritos oficiais:</span>
+                    <span class="font-semibold text-slate-700">4.179 alunos</span>
+                </div>
+            </div>
+
+            <!-- Card 3: Ativos Moodle -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition border-l-4 border-l-cyan-500">
+                <div class="flex items-center justify-between text-slate-500 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider">Ativos no Moodle</span>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <span class="text-3xl font-extrabold text-cyan-600" id="kpi-ativos">2.181</span>
+                    <span class="text-xs font-bold text-cyan-700 bg-cyan-100 px-2 py-0.5 rounded-full" id="kpi-perc-ativos">52.2%</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
+                    <span>Média por Tutor:</span>
+                    <span class="font-semibold text-cyan-700">31,2 ativos</span>
+                </div>
+            </div>
+
+            <!-- Card 4: Não Ingressaram -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition border-l-4 border-l-amber-500">
+                <div class="flex items-center justify-between text-slate-500 mb-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider">Não Ingressaram</span>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <span class="text-3xl font-extrabold text-amber-600" id="kpi-inativos">1.998</span>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full" id="kpi-perc-inativos">47.8%</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
+                    <span>Média por Tutor:</span>
+                    <span class="font-semibold text-amber-700">28,5 pendentes</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section: Gráfico Redondo Centralizado Refinado -->
+        <section class="flex justify-center no-print">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm w-full max-w-4xl">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900">Média de Cursistas </h2>
+                        <p class="text-xs text-slate-500">Gráfico com as informações dos Cursistas Ativos e Inativos no Moodle</p>
+                    </div>
+                    <span class="p-2 bg-cyan-50 text-cyan-700 rounded-xl text-xs font-bold border border-cyan-100 flex items-center gap-1.5">
+                        
+                    </span>
+                </div>
+
+                <!-- Layout Principal -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    
+                    <!-- DIVISÃO ESQUERDA (Não Ingressaram - Centralizado) -->
+                    <div class="md:col-span-3 order-2 md:order-1">
+                        <div class="bg-amber-50/70 border-2 border-amber-200 p-4 rounded-2xl text-center hover:shadow-md transition flex flex-col items-center">
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <span class="w-3.5 h-3.5 rounded-full bg-amber-400 inline-block shadow-sm"></span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-amber-900">Não Ingressaram</span>
+                            </div>
+                            
+                            <div class="my-2 flex items-baseline justify-center gap-2">
+                                <span class="text-3xl font-extrabold text-amber-600">47,8%</span>
+                            </div>
+                            <p class="text-xs text-amber-800 font-bold bg-amber-100/80 px-2.5 py-1 rounded-lg inline-block mb-3">
+                                1.998 Cursistas
+                            </p>
+                            <p class="text-[11px] text-slate-500 leading-relaxed text-center">
+                                Cursistas cadastrados que ainda necessitam do 1º acesso.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- GRÁFICO CENTRAL REDONDO COM DIÂMETRO INTERNO EXPANDIDO -->
+                    <div class="md:col-span-6 order-1 md:order-2 flex justify-center items-center">
+                        <div class="w-full h-80 relative flex items-center justify-center">
+                            <svg viewBox="0 0 360 320" class="w-full h-full max-w-sm drop-shadow-2xl">
+                                <defs>
+                                    <linearGradient id="centerLeftTopRefined" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#fef08a" />
+                                        <stop offset="60%" stop-color="#eab308" />
+                                        <stop offset="100%" stop-color="#ca8a04" />
+                                    </linearGradient>
+                                    <linearGradient id="centerLeftSideRefined" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#ca8a04" />
+                                        <stop offset="100%" stop-color="#713f12" />
+                                    </linearGradient>
+
+                                    <linearGradient id="centerRightTopRefined" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#38bdf8" />
+                                        <stop offset="60%" stop-color="#0284c7" />
+                                        <stop offset="100%" stop-color="#0369a1" />
+                                    </linearGradient>
+                                    <linearGradient id="centerRightSideRefined" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#0284c7" />
+                                        <stop offset="100%" stop-color="#0c4a6e" />
+                                    </linearGradient>
+
+                                    <linearGradient id="coreTotalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#1e293b" />
+                                        <stop offset="100%" stop-color="#0f172a" />
+                                    </linearGradient>
+
+                                    <filter id="softShadow3D" x="-30%" y="-30%" width="160%" height="160%">
+                                        <feDropShadow dx="0" dy="22" stdDeviation="14" flood-color="#0284c7" flood-opacity="0.15"/>
+                                        <feDropShadow dx="0" dy="12" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.25"/>
+                                    </filter>
+                                </defs>
+
+                                <g filter="url(#softShadow3D)">
+                                    <path d="M 180,150 L 180,182 A 120,82 0 0,1 60,150 L 60,118 A 120,82 0 0,0 180,182 Z" fill="url(#centerLeftSideRefined)" />
+                                    <path d="M 180,150 L 180,182 A 120,82 0 0,0 300,150 L 300,118 A 120,82 0 0,1 180,182 Z" fill="url(#centerRightSideRefined)" />
+
+                                    <path d="M 180,150 L 180,36 A 120,82 0 0,0 180,264 Z" fill="url(#centerLeftTopRefined)" stroke="#fef9c3" stroke-width="1" />
+                                    <path d="M 180,150 L 180,36 A 120,82 0 0,1 180,264 Z" fill="url(#centerRightTopRefined)" stroke="#bae6fd" stroke-width="1" />
+
+                                    <path d="M 178,38 A 118,80 0 0,0 64,116" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.7" />
+                                    <path d="M 182,38 A 118,80 0 0,1 296,116" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6" />
+
+                                    <line x1="180" y1="36" x2="180" y2="264" stroke="#ffffff" stroke-width="2.5" opacity="0.95" />
+
+                                    <!-- NÚCLEO CENTRAL -->
+                                    <ellipse cx="180" cy="150" rx="73" ry="48" fill="#020617" opacity="0.4" />
+                                    <ellipse cx="180" cy="148" rx="70" ry="46" fill="url(#coreTotalGradient)" stroke="#38bdf8" stroke-width="2.5" />
+                                    <ellipse cx="180" cy="148" rx="64" ry="41" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.25" />
+
+                                    <text x="180" y="128" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#38bdf8" text-anchor="middle" letter-spacing="1.5">TOTAL GERAL</text>
+                                    <text x="180" y="156" font-family="Inter, sans-serif" font-size="25" font-weight="900" fill="#ffffff" text-anchor="middle" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.5))">4.179</text>
+                                    <text x="180" y="172" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#94a3b8" text-anchor="middle" letter-spacing="1">CURSISTAS</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- DIVISÃO DIREITA (Ativos Moodle - Centralizado) -->
+                    <div class="md:col-span-3 order-3">
+                        <div class="bg-cyan-50/70 border-2 border-cyan-200 p-4 rounded-2xl text-center hover:shadow-md transition flex flex-col items-center">
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <span class="w-3.5 h-3.5 rounded-full bg-cyan-500 inline-block shadow-sm"></span>
+                                <span class="text-xs font-bold uppercase tracking-wider text-cyan-900">Ativos Moodle</span>
+                            </div>
+                            
+                            <div class="my-2 flex items-baseline justify-center gap-2">
+                                <span class="text-3xl font-extrabold text-cyan-600">52,2%</span>
+                            </div>
+                            <p class="text-xs text-cyan-800 font-bold bg-cyan-100/80 px-2.5 py-1 rounded-lg inline-block mb-3">
+                                2.181 Cursistas
+                            </p>
+                            <p class="text-[11px] text-slate-500 leading-relaxed text-center">
+                                Alunos engajados com acesso confirmado na plataforma virtual.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé Informativo Unificado -->
+                <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
+                    <span class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-info text-cyan-600"></i>
+                        <span>Proporção total calculada sobre <strong>4.179 cursistas</strong>.</span>
+                    </span>
+                    <span class="font-semibold text-slate-700">100% de cobertura da base</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Highlights & Performance Categories -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4 no-print">
+            
+            <!-- Highlight 1: Maior Engajamento (%) -->
+            <div class="bg-cyan-900/5 border border-cyan-200 rounded-2xl p-4 flex items-center space-x-3">
+                <div>
+                    <h3 class="text-xs font-bold text-cyan-900 uppercase tracking-wide">Maior Engajamento (%)</h3>
+                    <p class="text-sm font-semibold text-slate-800 mt-0.5" id="highlight-top-engajamento">IRENE DE TAVARES SAMPAIO (85.7%)</p>
+                    <p class="text-xs text-slate-500 mt-0.5">42 cursistas ativos de 49 totais no Moodle.</p>
+                </div>
+            </div>
+
+            <!-- Highlight 2: Maior Turma Total -->
+            <div class="bg-blue-900/5 border border-blue-200 rounded-2xl p-4 flex items-center space-x-3">
+                <div>
+                    <h3 class="text-xs font-bold text-blue-900 uppercase tracking-wide">Maior Turma Total</h3>
+                    <p class="text-sm font-semibold text-slate-800 mt-0.5" id="highlight-top-turma">FERNANDA LIMA SEVERO (94 alunos)</p>
+                    <p class="text-xs text-slate-500 mt-0.5">31 ativos no Moodle e 63 pendentes.</p>
+                </div>
+            </div>
+
+            <!-- Highlight 3: Busca Ativa -->
+            <div class="bg-amber-900/5 border border-amber-200 rounded-2xl p-4 flex items-center space-x-3">
+                <div>
+                    <h3 class="text-xs font-bold text-amber-900 uppercase tracking-wide">Oportunidade de Busca Ativa</h3>
+                    <p class="text-sm font-semibold text-slate-800 mt-0.5">1.998 cursistas a contatar</p>
+                    <p class="text-xs text-slate-500 mt-0.5">Pendentes para o 1º acesso.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Table Section -->
+        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden no-print">
+            
+            <!-- Table Controls -->
+            <div class="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-base font-bold text-slate-900">Detalhamento Completo por Tutor</h2>
+                    <p class="text-xs text-slate-500">Acompanhamento e distribuição de cursistas por tutor (70 tutores)</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <div class="relative flex-1 sm:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Pesquisar tutor por nome..." 
+                            class="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition">
+                    </div>
+
+                    <select id="statusFilter" onchange="filterTable()" class="px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition">
+                        <option value="all">Todos os Tutores (70)</option>
+                        <option value="high">Alta Adesão (&gt; 60% Ativos)</option>
+                        <option value="medium">Média Adesão (40% - 60%)</option>
+                        <option value="low">Atenção (&lt; 40% Ativos)</option>
+                        <option value="large">Turmas Grandes (&gt; 70 Alunos)</option>
+                    </select>
+
+                    <button onclick="resetFilters()" title="Limpar Filtros" class="p-2 text-slate-500 hover:text-slate-800 border border-slate-200 bg-white rounded-xl hover:bg-slate-50 transition text-xs">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto custom-scrollbar">
+                <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                    <thead class="bg-slate-100/70 text-slate-700 font-semibold border-b border-slate-200 text-xs uppercase tracking-wider">
+                        <tr>
+                            <th scope="col" class="py-3.5 px-4 w-12 text-center">#</th>
+                            <th scope="col" class="py-3.5 px-4 cursor-pointer hover:bg-slate-200/60 transition" onclick="sortTable('nome')">
+                                <div class="flex items-center gap-1">
+                                    <span>Nome do Tutor</span>
+                                    <i class="fa-solid fa-sort text-slate-400 text-[10px]"></i>
+                                </div>
+                            </th>
+                            <th scope="col" class="py-3.5 px-4 text-center cursor-pointer hover:bg-slate-200/60 transition" onclick="sortTable('total')">
+                                <div class="flex items-center justify-center gap-1">
+                                    <span>Total Distribuição</span>
+                                    <i class="fa-solid fa-sort text-slate-400 text-[10px]"></i>
+                                </div>
+                            </th>
+                            <th scope="col" class="py-3.5 px-4 text-center cursor-pointer hover:bg-slate-200/60 transition" onclick="sortTable('ativos')">
+                                <div class="flex items-center justify-center gap-1">
+                                    <span class="text-cyan-700 font-bold">Ativos Moodle</span>
+                                    <i class="fa-solid fa-sort text-slate-400 text-[10px]"></i>
+                                </div>
+                            </th>
+                            <th scope="col" class="py-3.5 px-4 text-center cursor-pointer hover:bg-slate-200/60 transition" onclick="sortTable('inativos')">
+                                <div class="flex items-center justify-center gap-1">
+                                    <span class="text-amber-700 font-bold">Não Ingressaram</span>
+                                    <i class="fa-solid fa-sort text-slate-400 text-[10px]"></i>
+                                </div>
+                            </th>
+                            <th scope="col" class="py-3.5 px-4 text-center cursor-pointer hover:bg-slate-200/60 transition" onclick="sortTable('percentual')">
+                                <div class="flex items-center justify-center gap-1">
+                                    <span>% Engajamento</span>
+                                    <i class="fa-solid fa-sort text-slate-400 text-[10px]"></i>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tutorsTableBody" class="divide-y divide-slate-100 text-slate-700">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Footer -->
+            <div class="px-4 py-3 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+                <div>
+                    Mostrando <span class="font-bold text-slate-800" id="visible-count">70</span> de <span class="font-bold text-slate-800">70</span> tutores registrados
+                </div>
+                <div class="flex items-center gap-1">
+                    <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-500"></span> <span class="mr-3">≥ 50% Engajado</span>
+                    <span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span> <span>&lt; 50% Engajado</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUADRO A4: QUADRO CONSOLIDADO DE TUTORES (DUAS COLUNAS) - ÚNICO VISÍVEL NA IMPRESSÃO -->
+        <section class="mt-8 flex justify-center">
+            <div class="page-a4 border border-slate-300 rounded-lg">
+                <!-- Cabeçalho do Documento A4 -->
+                <div class="border-b-2 border-slate-800 pb-2 mb-2 flex justify-between items-end">
+                    <div>
+                        <h2 class="text-base font-black text-slate-900 uppercase tracking-tight">Quadro Consolidado dos 70 Tutores</h2>
+                        <p class="text-[11px] text-slate-600 font-medium">Curso de Direitos Humanos e Saúde Mental • Plataforma Moodle</p>
+                    </div>
+                    <div class="text-right">
+                        
+                    </div>
+                </div>
+
+                <!-- Resumo Executivo em Mini-Cards na Folha -->
+                <div class="grid grid-cols-4 gap-2 mb-2 bg-slate-50 p-2 rounded-lg border border-slate-200 text-center">
+                    <div>
+                        <span class="text-[10px] text-slate-500 uppercase font-semibold block">Tutores</span>
+                        <span class="text-sm font-extrabold text-slate-900">70</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-500 uppercase font-semibold block">Total Cursistas</span>
+                        <span class="text-sm font-extrabold text-slate-900">4.179</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-cyan-600 uppercase font-bold block">Ativos Moodle</span>
+                        <span class="text-sm font-extrabold text-cyan-600">2.181 (52,2%)</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-amber-600 uppercase font-bold block">Não Ingressaram</span>
+                        <span class="text-sm font-extrabold text-amber-600">1.998 (47,8%)</span>
+                    </div>
+                </div>
+
+                <!-- Estrutura em Duas Colunas (35 Tutores cada) com Nomes Abreviados -->
+                <div class="grid grid-cols-2 gap-3">
+                    
+                    <!-- Coluna 1 (Tutores 1 a 35) -->
+                    <div>
+                        <table class="w-full text-left text-[10px] border-collapse">
+                            <thead>
+                                <tr class="bg-slate-800 text-white font-bold uppercase text-[9px]">
+                                    <th class="py-1 px-1.5 w-6 text-center">#</th>
+                                    <th class="py-1 px-1.5">Tutor(a)</th>
+                                    <th class="py-1 px-1.5 text-center">Tot</th>
+                                    <th class="py-1 px-1.5 text-center text-cyan-400">Ativ</th>
+                                    <th class="py-1 px-1.5 text-center text-amber-400">N/Ing</th>
+                                    <th class="py-1 px-1.5 text-center">%</th>
+                                </tr>
+                            </thead>
+                            <tbody id="a4Column1" class="divide-y divide-slate-200 border-b border-slate-200">
+                                <!-- Preenchido via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Coluna 2 (Tutores 36 a 70) -->
+                    <div>
+                        <table class="w-full text-left text-[10px] border-collapse">
+                            <thead>
+                                <tr class="bg-slate-800 text-white font-bold uppercase text-[9px]">
+                                    <th class="py-1 px-1.5 w-6 text-center">#</th>
+                                    <th class="py-1 px-1.5">Tutor(a)</th>
+                                    <th class="py-1 px-1.5 text-center">Tot</th>
+                                    <th class="py-1 px-1.5 text-center text-cyan-400">Ativ</th>
+                                    <th class="py-1 px-1.5 text-center text-amber-400">N/Ing</th>
+                                    <th class="py-1 px-1.5 text-center">%</th>
+                                </tr>
+                            </thead>
+                            <tbody id="a4Column2" class="divide-y divide-slate-200 border-b border-slate-200">
+                                <!-- Preenchido via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <!-- Rodapé A4 -->
+                <div class="mt-2 pt-1 border-t border-slate-300 flex justify-between items-center text-[9px] text-slate-500">
+                    <span>Legenda: <strong>Tot</strong> (Total Distribuição) | <strong class="text-cyan-600">Ativ</strong> (Ativos no Moodle) | <strong class="text-amber-600">N/Ing</strong> (Não Ingressaram)</span>
+                    <span class="font-bold text-slate-700">Página 1 de 1</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-8 py-4 no-print">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p>Painel de Monitoramento Moodle - Direitos Humanos e Saúde Mental © 2026</p>
+            <p class="mt-1">Dados agregados baseados na distribuição oficial do curso.</p>
+        </div>
+    </footer>
+
+    <script>
+        const tutorData = [
+            { id: 1, nome: "ADRIANA FELIX RODRIGUES", total: 51, ativos: 42, inativos: 9 },
+            { id: 2, nome: "ALINE DUARTE DA SILVA", total: 49, ativos: 29, inativos: 20 },
+            { id: 3, nome: "ALINE ZELLER BRANCHI", total: 50, ativos: 28, inativos: 22 },
+            { id: 4, nome: "ANDREA CRISTINA B. DE SOUSA", total: 75, ativos: 27, inativos: 48 },
+            { id: 5, nome: "ANDRESSA SILVEIRA MORAES", total: 71, ativos: 33, inativos: 38 },
+            { id: 6, nome: "ANGELA PATRICIA R. DA SILVA", total: 65, ativos: 38, inativos: 27 },
+            { id: 7, nome: "BRUNA LIMA DA SILVA", total: 52, ativos: 36, inativos: 16 },
+            { id: 8, nome: "CAMILA GONCALVES VIEIRA", total: 53, ativos: 33, inativos: 20 },
+            { id: 9, nome: "CAROLINE DE BRITO LIMA LIRA", total: 60, ativos: 31, inativos: 29 },
+            { id: 10, nome: "CAROLINE DE PAULA BATISTA", total: 45, ativos: 28, inativos: 17 },
+            { id: 11, nome: "CASSIA V. DE SOUZA MARQUES", total: 66, ativos: 29, inativos: 37 },
+            { id: 12, nome: "CASSIO ANDRADE MACHADO", total: 75, ativos: 35, inativos: 40 },
+            { id: 13, nome: "CLAUDIA ROSANE C. S. ALMEIDA", total: 69, ativos: 20, inativos: 49 },
+            { id: 14, nome: "CLEBERSON VIEIRA DE ARAUJO", total: 50, ativos: 30, inativos: 20 },
+            { id: 15, nome: "CLEITON DOUGLAS B. SANTOS", total: 55, ativos: 29, inativos: 26 },
+            { id: 16, nome: "CRIS DANIELA OLIVEIRA MACEDO", total: 75, ativos: 49, inativos: 26 },
+            { id: 17, nome: "DANIELE CRISTINA B. DE SOUSA", total: 76, ativos: 37, inativos: 39 },
+            { id: 18, nome: "DANIELLY M. F. L. DE ALMEIDA", total: 65, ativos: 31, inativos: 34 },
+            { id: 19, nome: "DEBORA MARIA B. DE SOUSA", total: 46, ativos: 36, inativos: 10 },
+            { id: 20, nome: "DOUGLAS H. DE OLIVEIRA BRAZ", total: 83, ativos: 25, inativos: 58 },
+            { id: 21, nome: "EDILZA SILVA MARTINS", total: 86, ativos: 28, inativos: 58 },
+            { id: 22, nome: "EDSON SANTOS DE LIMA", total: 51, ativos: 31, inativos: 20 },
+            { id: 23, nome: "EDUARDO JORGES PUGLIESI", total: 57, ativos: 31, inativos: 26 },
+            { id: 24, nome: "ELIZABETH LIRA SILVA", total: 68, ativos: 31, inativos: 37 },
+            { id: 25, nome: "EMMYLY NAYANE B. DE OLIVEIRA", total: 45, ativos: 37, inativos: 8 },
+            { id: 26, nome: "EMYGDIO FLORIANO DINIZ VIEIRA", total: 62, ativos: 37, inativos: 25 },
+            { id: 27, nome: "ERIKA NIELLY DE SOUSA BRITO", total: 67, ativos: 28, inativos: 39 },
+            { id: 28, nome: "ESLANIA MARTINS LOPES", total: 68, ativos: 29, inativos: 39 },
+            { id: 29, nome: "EUGENIO P. N. PAULO JUNIOR", total: 69, ativos: 29, inativos: 40 },
+            { id: 30, nome: "FATIMA DE LURDES B. DA ROSA", total: 47, ativos: 30, inativos: 17 },
+            { id: 31, nome: "FERNANDA LIMA SEVERO", total: 94, ativos: 31, inativos: 63 },
+            { id: 32, nome: "FRANCILEIDE DOS S. COSTA", total: 72, ativos: 29, inativos: 43 },
+            { id: 33, nome: "FRANCIMARA PEREIRA DA SILVA", total: 52, ativos: 29, inativos: 23 },
+            { id: 34, nome: "GABRIELLA DE OLIVEIRA RANGEL", total: 67, ativos: 32, inativos: 35 },
+            { id: 35, nome: "GEILTON FERREIRA DE MELO", total: 41, ativos: 34, inativos: 7 },
+            { id: 36, nome: "GIORDANA RODRIGUES CHAVES", total: 70, ativos: 32, inativos: 38 },
+            { id: 37, nome: "HELDER PABLO JUSTINO DE LIMA", total: 49, ativos: 32, inativos: 17 },
+            { id: 38, nome: "IAMARA DA SILVA P. BRITO", total: 76, ativos: 31, inativos: 45 },
+            { id: 39, nome: "IRENE DE TAVARES SAMPAIO", total: 49, ativos: 42, inativos: 7 },
+            { id: 40, nome: "ITALO RUAN ALMEIDA BRAZ", total: 79, ativos: 31, inativos: 48 },
+            { id: 41, nome: "JANAINA DANTAS DOS SANTOS", total: 62, ativos: 34, inativos: 28 },
+            { id: 42, nome: "JANICE DE MELO MACHADO", total: 70, ativos: 32, inativos: 38 },
+            { id: 43, nome: "JOSELITA ALVES DA SILVA", total: 75, ativos: 24, inativos: 51 },
+            { id: 44, nome: "JOSIELHE GONCALVES SOARES", total: 45, ativos: 32, inativos: 13 },
+            { id: 45, nome: "JOSIVAL A. DOS SANTOS JUNIOR", total: 42, ativos: 26, inativos: 16 },
+            { id: 46, nome: "JULIANE REIS MAIA DA SILVA", total: 51, ativos: 32, inativos: 19 },
+            { id: 47, nome: "KILMA C. FERREIRA GUEDES", total: 42, ativos: 29, inativos: 13 },
+            { id: 48, nome: "LETICIA RAMIRES CORREA", total: 56, ativos: 24, inativos: 32 },
+            { id: 49, nome: "LIDIANE DA ROSA THOMAZ", total: 49, ativos: 29, inativos: 20 },
+            { id: 50, nome: "LISYARA L. G. DE C. DA ROSA", total: 52, ativos: 26, inativos: 26 },
+            { id: 51, nome: "LIZIANE DE AVILA OLIVEIRA", total: 43, ativos: 27, inativos: 16 },
+            { id: 52, nome: "LUCIA RODRIGUES NEVES", total: 79, ativos: 34, inativos: 45 },
+            { id: 53, nome: "LUIZA VIEIRA DA COSTA", total: 41, ativos: 25, inativos: 16 },
+            { id: 54, nome: "MARIA ELOIZA CASTRO THOMAZ", total: 82, ativos: 34, inativos: 48 },
+            { id: 55, nome: "MARIANA CAETANO ALCANTARA", total: 69, ativos: 30, inativos: 39 },
+            { id: 56, nome: "MARILENE M. C. B. RODRIGUES", total: 67, ativos: 30, inativos: 37 },
+            { id: 57, nome: "NATALIA ESTELA A. BRANDAO", total: 49, ativos: 35, inativos: 14 },
+            { id: 58, nome: "NATALIA MARIA DA SILVA SANTOS", total: 45, ativos: 27, inativos: 18 },
+            { id: 59, nome: "NATAN EVANGELISTA DA SILVA", total: 50, ativos: 31, inativos: 19 },
+            { id: 60, nome: "NAYARA C. DA SILVA CORDEIRO", total: 72, ativos: 36, inativos: 36 },
+            { id: 61, nome: "PATRICIA F. CAVALHEIRO", total: 69, ativos: 27, inativos: 42 },
+            { id: 62, nome: "PEDRO EULA MARQUES", total: 61, ativos: 31, inativos: 30 },
+            { id: 63, nome: "RAVENA PEREIRA LEITE", total: 71, ativos: 27, inativos: 44 },
+            { id: 64, nome: "RENATA MENEZES DE JESUS", total: 69, ativos: 37, inativos: 32 },
+            { id: 65, nome: "RODRIGO SOARES DIAS", total: 81, ativos: 34, inativos: 47 },
+            { id: 66, nome: "ROSANE SOARES DE OLIVEIRA", total: 42, ativos: 28, inativos: 14 },
+            { id: 67, nome: "SILVIA R. DE SOUZA A. DE SOUZA", total: 51, ativos: 28, inativos: 23 },
+            { id: 68, nome: "TEYVIANNE RIBEIRO DE OLIVEIRA", total: 44, ativos: 24, inativos: 20 },
+            { id: 69, nome: "VALERIA PEREIRA DA SILVA", total: 81, ativos: 31, inativos: 50 },
+            { id: 70, nome: "YGOR SARKIS C TEIXEIRA", total: 69, ativos: 37, inativos: 32 }
+        ];
+
+        const processedData = tutorData.map(t => {
+            const percAtivos = ((t.ativos / t.total) * 100).toFixed(1);
+            return {
+                ...t,
+                percAtivos: parseFloat(percAtivos)
+            };
+        });
+
+        let currentData = [...processedData];
+        let currentSort = { field: 'id', dir: 'asc' };
+
+        window.onload = function() {
+            renderTable(currentData);
+            renderA4Table(processedData);
+            updateHighlights();
+        };
+
+        function renderTable(data) {
+            const tbody = document.getElementById('tutorsTableBody');
+            tbody.innerHTML = '';
+
+            document.getElementById('visible-count').innerText = data.length;
+
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="py-8 text-center text-slate-400">
+                            <i class="fa-solid fa-folder-open text-3xl mb-2 text-slate-300"></i>
+                            <p class="text-sm font-medium">Nenhum tutor encontrado para os filtros selecionados.</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            data.forEach((tutor) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/80 transition text-slate-700";
+
+                const isHighEngagement = tutor.percAtivos >= 50;
+                const badgeClass = isHighEngagement 
+                    ? "bg-cyan-50 text-cyan-700 border-cyan-200" 
+                    : "bg-amber-50 text-amber-700 border-amber-200";
+
+                tr.innerHTML = `
+                    <td class="py-3 px-4 text-center font-mono text-xs text-slate-400">${tutor.id}</td>
+                    <td class="py-3 px-4 font-semibold text-slate-800">
+                        <span>${tutor.nome}</span>
+                    </td>
+                    <td class="py-3 px-4 text-center font-bold text-slate-900">${tutor.total}</td>
+                    <td class="py-3 px-4 text-center font-bold text-cyan-600 bg-cyan-50/30">${tutor.ativos}</td>
+                    <td class="py-3 px-4 text-center font-bold text-amber-600 bg-amber-50/30">${tutor.inativos}</td>
+                    <td class="py-3 px-4 text-center">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold border ${badgeClass}">
+                            ${tutor.percAtivos}%
+                        </span>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Função auxiliar para abreviar nomes do meio no A4
+        function abreviarNome(nomeCompleto) {
+            const partes = nomeCompleto.trim().split(/\s+/);
+            if (partes.length <= 2) return nomeCompleto;
+
+            const primeiro = partes[0];
+            const ultimo = partes[partes.length - 1];
+            
+            const meioAbreviado = partes.slice(1, -1).map(parte => {
+                if (['DE', 'DA', 'DOS', 'DAS', 'E'].includes(parte)) return '';
+                return parte.charAt(0) + '.';
+            }).filter(Boolean).join(' ');
+
+            return meioAbreviado ? `${primeiro} ${meioAbreviado} ${ultimo}` : `${primeiro} ${ultimo}`;
+        }
+
+        // Função preenchedora do Quadro A4 em Duas Colunas com Nomes Abreviados
+        function renderA4Table(data) {
+            const col1 = document.getElementById('a4Column1');
+            const col2 = document.getElementById('a4Column2');
+
+            col1.innerHTML = '';
+            col2.innerHTML = '';
+
+            const half = Math.ceil(data.length / 2);
+            const dataCol1 = data.slice(0, half);
+            const dataCol2 = data.slice(half);
+
+            const createRow = (tutor, index) => {
+                const tr = document.createElement('tr');
+                tr.className = index % 2 === 0 ? "bg-white" : "bg-slate-50/60";
+                
+                const isHigh = tutor.percAtivos >= 50;
+                const percColor = isHigh ? "text-cyan-700 font-bold" : "text-amber-700 font-bold";
+                const nomeAbreviado = abreviarNome(tutor.nome);
+
+                tr.innerHTML = `
+                    <td class="py-0.5 px-1 text-center font-mono text-[9px] text-slate-400 border-r border-slate-100">${tutor.id}</td>
+                    <td class="py-0.5 px-1.5 font-medium text-slate-800 truncate max-w-[130px]" title="${tutor.nome}">${nomeAbreviado}</td>
+                    <td class="py-0.5 px-1 text-center font-bold text-slate-700 border-l border-slate-100">${tutor.total}</td>
+                    <td class="py-0.5 px-1 text-center font-bold text-cyan-600 bg-cyan-50/30">${tutor.ativos}</td>
+                    <td class="py-0.5 px-1 text-center font-bold text-amber-600 bg-amber-50/30">${tutor.inativos}</td>
+                    <td class="py-0.5 px-1 text-center ${percColor} border-l border-slate-100">${tutor.percAtivos}%</td>
+                `;
+                return tr;
+            };
+
+            dataCol1.forEach((tutor, idx) => col1.appendChild(createRow(tutor, idx)));
+            dataCol2.forEach((tutor, idx) => col2.appendChild(createRow(tutor, idx)));
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('statusFilter').value;
+
+            currentData = processedData.filter(tutor => {
+                const matchesName = tutor.nome.toLowerCase().includes(searchTerm);
+                
+                let matchesCategory = true;
+                if (category === 'high') matchesCategory = tutor.percAtivos >= 60;
+                else if (category === 'medium') matchesCategory = tutor.percAtivos >= 40 && tutor.percAtivos < 60;
+                else if (category === 'low') matchesCategory = tutor.percAtivos < 40;
+                else if (category === 'large') matchesCategory = tutor.total >= 70;
+
+                return matchesName && matchesCategory;
+            });
+
+            applySort();
+            renderTable(currentData);
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('statusFilter').value = 'all';
+            currentData = [...processedData];
+            applySort();
+            renderTable(currentData);
+        }
+
+        function sortTable(field) {
+            if (currentSort.field === field) {
+                currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.field = field;
+                currentSort.dir = field === 'nome' ? 'asc' : 'desc';
+            }
+            applySort();
+            renderTable(currentData);
+        }
+
+        function applySort() {
+            const { field, dir } = currentSort;
+            const multiplier = dir === 'asc' ? 1 : -1;
+
+            currentData.sort((a, b) => {
+                if (field === 'nome') {
+                    return multiplier * a.nome.localeCompare(b.nome);
+                } else if (field === 'total') {
+                    return multiplier * (a.total - b.total);
+                } else if (field === 'ativos') {
+                    return multiplier * (a.ativos - b.ativos);
+                } else if (field === 'inativos') {
+                    return multiplier * (a.inativos - b.inativos);
+                } else if (field === 'percentual') {
+                    return multiplier * (a.percAtivos - b.percAtivos);
+                } else {
+                    return multiplier * (a.id - b.id);
+                }
+            });
+        }
+
+        function updateHighlights() {
+            const sortedByEng = [...processedData].sort((a, b) => b.percAtivos - a.percAtivos);
+            const topEng = sortedByEng[0];
+            document.getElementById('highlight-top-engajamento').innerText = `${topEng.nome} (${topEng.percAtivos}%)`;
+
+            const sortedByVol = [...processedData].sort((b, a) => a.total - b.total);
+            const topVol = sortedByVol[0];
+            document.getElementById('highlight-top-turma').innerText = `${topVol.nome} (${topVol.total} alunos)`;
+        }
+
+        function exportCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "#;Nome do Tutor;Total Cursistas;Ativos Moodle;Nao Ingressaram;Percentual Engajamento\n";
+
+            currentData.forEach(t => {
+                csvContent += `${t.id};"${t.nome}";${t.total};${t.ativos};${t.inativos};${t.percAtivos}%\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Relatorio_Tutores_Cursistas_Moodle.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
