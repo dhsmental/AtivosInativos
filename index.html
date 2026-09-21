@@ -53,22 +53,6 @@
             box-sizing: border-box;
         }
 
-        /* REGRAS DE IMPRESSÃO */
-        /* REGRAS DE IMPRESSÃO */
-        /* REGRAS DE IMPRESSÃO */
-        /* Estilos para a tela */
-        .page-a4 {
-            width: 100%;
-            max-width: 210mm;
-            min-height: 297mm;
-            margin: 0 auto;
-            background: #ffffff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            padding: 4mm 6mm;
-            box-sizing: border-box;
-        }
-
-        /* REGRAS DE IMPRESSÃO DEFINITIVAS */
         /* REGRAS DE IMPRESSÃO DEFINITIVAS */
         @media print {
             @page {
@@ -99,7 +83,6 @@
                 box-shadow: none !important;
                 border: none !important;
                 margin: 0 !important;
-                /* Aumentamos o padding inferior para 12mm para preencher a margem final */
                 padding: 4mm 6mm 12mm 6mm !important; 
                 box-sizing: border-box !important;
                 overflow: hidden !important;
@@ -124,7 +107,7 @@
                             <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white">Gestão de Tutores & Cursistas</h1>
                             <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs px-2.5 py-0.5 rounded-full font-medium">Moodle</span>
                         </div>
-                        <p class="text-slate-400 text-xs sm:text-sm mt-0.5">Curso de Direitos Humanos e Saúde Mental • Atualizado até 14/09/2026</p>
+                        <p class="text-slate-400 text-xs sm:text-sm mt-0.5">Curso de Direitos Humanos e Saúde Mental • Atualizado até 21/09/2026</p>
                     </div>
                 </div>
 
@@ -156,7 +139,7 @@
                 </div>
                 <div class="mt-3 text-xs text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
                     <span>Média por tutor:</span>
-                    <span class="font-semibold text-slate-700">59.7 cursistas</span>
+                    <span class="font-semibold text-slate-700">61 cursistas</span>
                 </div>
             </div>
 
@@ -166,12 +149,12 @@
                     <span class="text-xs font-semibold uppercase tracking-wider">Base Cursistas</span>
                 </div>
                 <div class="flex items-baseline justify-between">
-                    <span class="text-3xl font-extrabold text-slate-900" id="kpi-total">4.179</span>
+                    <span class="text-3xl font-extrabold text-slate-900" id="kpi-total">4.297</span>
                     <span class="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">Total Geral</span>
                 </div>
                 <div class="mt-3 text-xs text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
-                    <span>Inscritos oficiais:</span>
-                    <span class="font-semibold text-slate-700">4.179 alunos</span>
+                    <span>Total Inscritos:</span>
+                    <span class="font-semibold text-slate-700">4.297 alunos</span>
                 </div>
             </div>
 
@@ -181,12 +164,12 @@
                     <span class="text-xs font-semibold uppercase tracking-wider">Ativos no Moodle</span>
                 </div>
                 <div class="flex items-baseline justify-between">
-                    <span class="text-3xl font-extrabold text-cyan-600" id="kpi-ativos">2.181</span>
-                    <span class="text-xs font-bold text-cyan-700 bg-cyan-100 px-2 py-0.5 rounded-full" id="kpi-perc-ativos">52.2%</span>
+                    <span class="text-3xl font-extrabold text-cyan-600" id="kpi-ativos">2.213</span>
+                    <span class="text-xs font-bold text-cyan-700 bg-cyan-100 px-2 py-0.5 rounded-full" id="kpi-perc-ativos">51.5%</span>
                 </div>
                 <div class="mt-3 text-xs text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
                     <span>Média por Tutor:</span>
-                    <span class="font-semibold text-cyan-700">31,2 ativos</span>
+                    <span class="font-semibold text-cyan-700">31 cursistas</span>
                 </div>
             </div>
 
@@ -196,12 +179,12 @@
                     <span class="text-xs font-semibold uppercase tracking-wider">Não Ingressaram</span>
                 </div>
                 <div class="flex items-baseline justify-between">
-                    <span class="text-3xl font-extrabold text-amber-600" id="kpi-inativos">1.998</span>
-                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full" id="kpi-perc-inativos">47.8%</span>
+                    <span class="text-3xl font-extrabold text-amber-600" id="kpi-inativos">2.084</span>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full" id="kpi-perc-inativos">48.5%</span>
                 </div>
                 <div class="mt-3 text-xs text-slate-500 border-t border-slate-100 pt-2 flex justify-between">
                     <span>Média por Tutor:</span>
-                    <span class="font-semibold text-amber-700">28,5 pendentes</span>
+                    <span class="font-semibold text-amber-700">30 pendentes</span>
                 </div>
             </div>
         </section>
@@ -227,10 +210,10 @@
                                 <span class="text-xs font-bold uppercase tracking-wider text-amber-900">Não Ingressaram</span>
                             </div>
                             <div class="my-2 flex items-baseline justify-center gap-2">
-                                <span class="text-3xl font-extrabold text-amber-600">47,8%</span>
+                                <span class="text-3xl font-extrabold text-amber-600">48,5%</span>
                             </div>
                             <p class="text-xs text-amber-800 font-bold bg-amber-100/80 px-2.5 py-1 rounded-lg inline-block mb-3">
-                                1.998 Cursistas
+                                2.084 Cursistas
                             </p>
                             <p class="text-[11px] text-slate-500 leading-relaxed text-center">
                                 Cursistas cadastrados que ainda necessitam do 1º acesso.
@@ -292,7 +275,7 @@
                                     <ellipse cx="180" cy="148" rx="64" ry="41" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.25" />
 
                                     <text x="180" y="128" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#38bdf8" text-anchor="middle" letter-spacing="1.5">TOTAL GERAL</text>
-                                    <text x="180" y="156" font-family="Inter, sans-serif" font-size="25" font-weight="900" fill="#ffffff" text-anchor="middle" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.5))">4.179</text>
+                                    <text x="180" y="156" font-family="Inter, sans-serif" font-size="25" font-weight="900" fill="#ffffff" text-anchor="middle" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.5))">4.297</text>
                                     <text x="180" y="172" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#94a3b8" text-anchor="middle" letter-spacing="1">CURSISTAS</text>
                                 </g>
                             </svg>
@@ -307,10 +290,10 @@
                                 <span class="text-xs font-bold uppercase tracking-wider text-cyan-900">Ativos Moodle</span>
                             </div>
                             <div class="my-2 flex items-baseline justify-center gap-2">
-                                <span class="text-3xl font-extrabold text-cyan-600">52,2%</span>
+                                <span class="text-3xl font-extrabold text-cyan-600">51,5%</span>
                             </div>
                             <p class="text-xs text-cyan-800 font-bold bg-cyan-100/80 px-2.5 py-1 rounded-lg inline-block mb-3">
-                                2.181 Cursistas
+                                2.213 Cursistas
                             </p>
                             <p class="text-[11px] text-slate-500 leading-relaxed text-center">
                                 Alunos engajados com acesso confirmado na plataforma virtual.
@@ -323,7 +306,7 @@
                 <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
                     <span class="flex items-center gap-1.5">
                         <i class="fa-solid fa-circle-info text-cyan-600"></i>
-                        <span>Proporção total calculada sobre <strong>4.179 cursistas</strong>.</span>
+                        <span>Proporção total calculada sobre <strong>4.297 cursistas</strong>.</span>
                     </span>
                     <span class="font-semibold text-slate-700">100% de cobertura da base</span>
                 </div>
@@ -337,8 +320,8 @@
             <div class="bg-cyan-900/5 border border-cyan-200 rounded-2xl p-4 flex items-center space-x-3">
                 <div>
                     <h3 class="text-xs font-bold text-cyan-900 uppercase tracking-wide">Maior Engajamento (%)</h3>
-                    <p class="text-sm font-semibold text-slate-800 mt-0.5" id="highlight-top-engajamento">IRENE DE TAVARES SAMPAIO (85.7%)</p>
-                    <p class="text-xs text-slate-500 mt-0.5">42 cursistas ativos de 49 totais no Moodle.</p>
+                    <p class="text-sm font-semibold text-slate-800 mt-0.5" id="highlight-top-engajamento">IRENE DE TAVARES SAMPAIO (76.4%)</p>
+                    <p class="text-xs text-slate-500 mt-0.5">42 cursistas ativos de 55 totais no Moodle.</p>
                 </div>
             </div>
 
@@ -355,7 +338,7 @@
             <div class="bg-amber-900/5 border border-amber-200 rounded-2xl p-4 flex items-center space-x-3">
                 <div>
                     <h3 class="text-xs font-bold text-amber-900 uppercase tracking-wide">Oportunidade de Busca Ativa</h3>
-                    <p class="text-sm font-semibold text-slate-800 mt-0.5">1.998 cursistas a contatar</p>
+                    <p class="text-sm font-semibold text-slate-800 mt-0.5">2.084 cursistas a contatar</p>
                     <p class="text-xs text-slate-500 mt-0.5">Pendentes para o 1º acesso.</p>
                 </div>
             </div>
@@ -459,7 +442,7 @@
 
                 <!-- Cabeçalho do Documento A4 Centralizado e sem o subtítulo -->
                 <div class="border-b-2 border-slate-800 pb-2 mb-2 text-center">
-                    <h2 class="text-base font-black text-slate-900 uppercase tracking-tight">Quadro Consolidado dos 70 Tutores</h2>
+                    <h2 class="text-base font-black text-slate-900 uppercase tracking-tight">Quadro Consolidado dos 70 Tutores até o dia 21/09/2026</h2>
                 </div>
 
                 <!-- Resumo Executivo em Mini-Cards na Folha -->
@@ -470,15 +453,15 @@
                     </div>
                     <div>
                         <span class="text-[10px] text-slate-500 uppercase font-semibold block">Total Cursistas</span>
-                        <span class="text-sm font-extrabold text-slate-900">4.179</span>
+                        <span class="text-sm font-extrabold text-slate-900">4.297</span>
                     </div>
                     <div>
                         <span class="text-[10px] text-cyan-600 uppercase font-bold block">Ativos Moodle</span>
-                        <span class="text-sm font-extrabold text-cyan-600">2.181 (52,2%)</span>
+                        <span class="text-sm font-extrabold text-cyan-600">2.213 (51,5%)</span>
                     </div>
                     <div>
                         <span class="text-[10px] text-amber-600 uppercase font-bold block">Não Ingressaram</span>
-                        <span class="text-sm font-extrabold text-amber-600">1.998 (47,8%)</span>
+                        <span class="text-sm font-extrabold text-amber-600">2.084 (48,5%)</span>
                     </div>
                 </div>
 
@@ -544,76 +527,76 @@
 
     <script>
         const tutorData = [
-            { id: 1, nome: "ADRIANA FELIX RODRIGUES", total: 51, ativos: 42, inativos: 9 },
+            { id: 1, nome: "ADRIANA FELIX RODRIGUES", total: 55, ativos: 42, inativos: 13 },
             { id: 2, nome: "ALINE DUARTE DA SILVA", total: 49, ativos: 29, inativos: 20 },
             { id: 3, nome: "ALINE ZELLER BRANCHI", total: 50, ativos: 28, inativos: 22 },
-            { id: 4, nome: "ANDREA CRISTINA B. DE SOUSA", total: 75, ativos: 27, inativos: 48 },
-            { id: 5, nome: "ANDRESSA SILVEIRA MORAES", total: 71, ativos: 33, inativos: 38 },
-            { id: 6, nome: "ANGELA PATRICIA R. DA SILVA", total: 65, ativos: 38, inativos: 27 },
-            { id: 7, nome: "BRUNA LIMA DA SILVA", total: 52, ativos: 36, inativos: 16 },
-            { id: 8, nome: "CAMILA GONCALVES VIEIRA", total: 53, ativos: 33, inativos: 20 },
+            { id: 4, nome: "ANDREA CRISTINA B. DE SOUSA", total: 74, ativos: 27, inativos: 47 },
+            { id: 5, nome: "ANDRESSA SILVEIRA MORAES", total: 71, ativos: 34, inativos: 37 },
+            { id: 6, nome: "ANGELA PATRICIA R. DA SILVA", total: 64, ativos: 39, inativos: 25 },
+            { id: 7, nome: "BRUNA LIMA DA SILVA", total: 53, ativos: 37, inativos: 16 },
+            { id: 8, nome: "CAMILA GONCALVES VIEIRA", total: 55, ativos: 33, inativos: 22 },
             { id: 9, nome: "CAROLINE DE BRITO LIMA LIRA", total: 60, ativos: 31, inativos: 29 },
             { id: 10, nome: "CAROLINE DE PAULA BATISTA", total: 45, ativos: 28, inativos: 17 },
             { id: 11, nome: "CASSIA V. DE SOUZA MARQUES", total: 66, ativos: 29, inativos: 37 },
             { id: 12, nome: "CASSIO ANDRADE MACHADO", total: 75, ativos: 35, inativos: 40 },
-            { id: 13, nome: "CLAUDIA ROSANE C. S. ALMEIDA", total: 69, ativos: 20, inativos: 49 },
+            { id: 13, nome: "CLAUDIA ROSANE C. S. ALMEIDA", total: 69, ativos: 22, inativos: 47 },
             { id: 14, nome: "CLEBERSON VIEIRA DE ARAUJO", total: 50, ativos: 30, inativos: 20 },
-            { id: 15, nome: "CLEITON DOUGLAS B. SANTOS", total: 55, ativos: 29, inativos: 26 },
-            { id: 16, nome: "CRIS DANIELA OLIVEIRA MACEDO", total: 75, ativos: 49, inativos: 26 },
-            { id: 17, nome: "DANIELE CRISTINA B. DE SOUSA", total: 76, ativos: 37, inativos: 39 },
+            { id: 15, nome: "CLEITON DOUGLAS B. SANTOS", total: 53, ativos: 29, inativos: 24 },
+            { id: 16, nome: "CRIS DANIELA OLIVEIRA MACEDO", total: 74, ativos: 50, inativos: 24 },
+            { id: 17, nome: "DANIELE CRISTINA B. DE SOUSA", total: 77, ativos: 38, inativos: 39 },
             { id: 18, nome: "DANIELLY M. F. L. DE ALMEIDA", total: 65, ativos: 31, inativos: 34 },
-            { id: 19, nome: "DEBORA MARIA B. DE SOUSA", total: 46, ativos: 36, inativos: 10 },
-            { id: 20, nome: "DOUGLAS H. DE OLIVEIRA BRAZ", total: 83, ativos: 25, inativos: 58 },
-            { id: 21, nome: "EDILZA SILVA MARTINS", total: 86, ativos: 28, inativos: 58 },
-            { id: 22, nome: "EDSON SANTOS DE LIMA", total: 51, ativos: 31, inativos: 20 },
-            { id: 23, nome: "EDUARDO JORGES PUGLIESI", total: 57, ativos: 31, inativos: 26 },
+            { id: 19, nome: "DEBORA MARIA B. DE SOUSA", total: 47, ativos: 37, inativos: 10 },
+            { id: 20, nome: "DOUGLAS H. DE OLIVEIRA BRAZ", total: 84, ativos: 25, inativos: 59 },
+            { id: 21, nome: "EDILZA SILVA MARTINS", total: 87, ativos: 28, inativos: 59 },
+            { id: 22, nome: "EDSON SANTOS DE LIMA", total: 48, ativos: 31, inativos: 17 },
+            { id: 23, nome: "EDUARDO JORGES PUGLIESI", total: 52, ativos: 32, inativos: 20 },
             { id: 24, nome: "ELIZABETH LIRA SILVA", total: 68, ativos: 31, inativos: 37 },
-            { id: 25, nome: "EMMYLY NAYANE B. DE OLIVEIRA", total: 45, ativos: 37, inativos: 8 },
+            { id: 25, nome: "EMMYLY NAYANE B. DE OLIVEIRA", total: 44, ativos: 38, inativos: 6 },
             { id: 26, nome: "EMYGDIO FLORIANO DINIZ VIEIRA", total: 62, ativos: 37, inativos: 25 },
             { id: 27, nome: "ERIKA NIELLY DE SOUSA BRITO", total: 67, ativos: 28, inativos: 39 },
-            { id: 28, nome: "ESLANIA MARTINS LOPES", total: 68, ativos: 29, inativos: 39 },
-            { id: 29, nome: "EUGENIO P. N. PAULO JUNIOR", total: 69, ativos: 29, inativos: 40 },
-            { id: 30, nome: "FATIMA DE LURDES B. DA ROSA", total: 47, ativos: 30, inativos: 17 },
+            { id: 28, nome: "ESLANIA MARTINS LOPES", total: 68, ativos: 30, inativos: 38 },
+            { id: 29, nome: "EUGENIO P. N. PAULO JUNIOR", total: 68, ativos: 29, inativos: 39 },
+            { id: 30, nome: "FATIMA DE LURDES B. DA ROSA", total: 52, ativos: 32, inativos: 20 },
             { id: 31, nome: "FERNANDA LIMA SEVERO", total: 94, ativos: 31, inativos: 63 },
-            { id: 32, nome: "FRANCILEIDE DOS S. COSTA", total: 72, ativos: 29, inativos: 43 },
-            { id: 33, nome: "FRANCIMARA PEREIRA DA SILVA", total: 52, ativos: 29, inativos: 23 },
-            { id: 34, nome: "GABRIELLA DE OLIVEIRA RANGEL", total: 67, ativos: 32, inativos: 35 },
-            { id: 35, nome: "GEILTON FERREIRA DE MELO", total: 41, ativos: 34, inativos: 7 },
-            { id: 36, nome: "GIORDANA RODRIGUES CHAVES", total: 70, ativos: 32, inativos: 38 },
-            { id: 37, nome: "HELDER PABLO JUSTINO DE LIMA", total: 49, ativos: 32, inativos: 17 },
-            { id: 38, nome: "IAMARA DA SILVA P. BRITO", total: 76, ativos: 31, inativos: 45 },
-            { id: 39, nome: "IRENE DE TAVARES SAMPAIO", total: 49, ativos: 42, inativos: 7 },
+            { id: 32, nome: "FRANCILEIDE DOS S. COSTA", total: 71, ativos: 30, inativos: 41 },
+            { id: 33, nome: "FRANCIMARA PEREIRA DA SILVA", total: 51, ativos: 29, inativos: 22 },
+            { id: 34, nome: "GABRIELLA DE OLIVEIRA RANGEL", total: 67, ativos: 31, inativos: 36 },
+            { id: 35, nome: "GEILTON FERREIRA DE MELO", total: 44, ativos: 34, inativos: 11 },
+            { id: 36, nome: "GIORDANA RODRIGUES CHAVES", total: 70, ativos: 33, inativos: 37},
+            { id: 37, nome: "HELDER PABLO JUSTINO DE LIMA", total: 51, ativos: 33, inativos: 18 },
+            { id: 38, nome: "IAMARA DA SILVA P. BRITO", total: 77, ativos: 31, inativos: 46 },
+            { id: 39, nome: "IRENE DE TAVARES SAMPAIO", total: 55, ativos: 42, inativos: 13 },
             { id: 40, nome: "ITALO RUAN ALMEIDA BRAZ", total: 79, ativos: 31, inativos: 48 },
-            { id: 41, nome: "JANAINA DANTAS DOS SANTOS", total: 62, ativos: 34, inativos: 28 },
-            { id: 42, nome: "JANICE DE MELO MACHADO", total: 70, ativos: 32, inativos: 38 },
+            { id: 41, nome: "JANAINA DANTAS DOS SANTOS", total: 62, ativos: 35, inativos: 27 },
+            { id: 42, nome: "JANICE DE MELO MACHADO", total: 69, ativos: 33, inativos: 36 },
             { id: 43, nome: "JOSELITA ALVES DA SILVA", total: 75, ativos: 24, inativos: 51 },
-            { id: 44, nome: "JOSIELHE GONCALVES SOARES", total: 45, ativos: 32, inativos: 13 },
+            { id: 44, nome: "JOSIELHE GONCALVES SOARES", total: 46, ativos: 32, inativos: 14 },
             { id: 45, nome: "JOSIVAL A. DOS SANTOS JUNIOR", total: 42, ativos: 26, inativos: 16 },
-            { id: 46, nome: "JULIANE REIS MAIA DA SILVA", total: 51, ativos: 32, inativos: 19 },
+            { id: 46, nome: "JULIANE REIS MAIA DA SILVA", total: 52, ativos: 32, inativos: 20 },
             { id: 47, nome: "KILMA C. FERREIRA GUEDES", total: 42, ativos: 29, inativos: 13 },
             { id: 48, nome: "LETICIA RAMIRES CORREA", total: 56, ativos: 24, inativos: 32 },
-            { id: 49, nome: "LIDIANE DA ROSA THOMAZ", total: 49, ativos: 29, inativos: 20 },
-            { id: 50, nome: "LISYARA L. G. DE C. DA ROSA", total: 52, ativos: 26, inativos: 26 },
-            { id: 51, nome: "LIZIANE DE AVILA OLIVEIRA", total: 43, ativos: 27, inativos: 16 },
-            { id: 52, nome: "LUCIA RODRIGUES NEVES", total: 79, ativos: 34, inativos: 45 },
-            { id: 53, nome: "LUIZA VIEIRA DA COSTA", total: 41, ativos: 25, inativos: 16 },
-            { id: 54, nome: "MARIA ELOIZA CASTRO THOMAZ", total: 82, ativos: 34, inativos: 48 },
-            { id: 55, nome: "MARIANA CAETANO ALCANTARA", total: 69, ativos: 30, inativos: 39 },
-            { id: 56, nome: "MARILENE M. C. B. RODRIGUES", total: 67, ativos: 30, inativos: 37 },
+            { id: 49, nome: "LIDIANE DA ROSA THOMAZ", total: 51, ativos: 29, inativos: 22 },
+            { id: 50, nome: "LISYARA L. G. DE C. DA ROSA", total: 54, ativos: 26, inativos: 28 },
+            { id: 51, nome: "LIZIANE DE AVILA OLIVEIRA", total: 46, ativos: 30, inativos: 16 },
+            { id: 52, nome: "LUCIA RODRIGUES NEVES", total: 78, ativos: 34, inativos: 44 },
+            { id: 53, nome: "LUIZA VIEIRA DA COSTA", total: 39, ativos: 25, inativos: 14 },
+            { id: 54, nome: "MARIA ELOIZA CASTRO THOMAZ", total: 82, ativos: 36, inativos: 46 },
+            { id: 55, nome: "MARIANA CAETANO ALCANTARA", total: 68, ativos: 32, inativos: 36 },
+            { id: 56, nome: "MARILENE M. C. B. RODRIGUES", total: 67, ativos: 31, inativos: 36 },
             { id: 57, nome: "NATALIA ESTELA A. BRANDAO", total: 49, ativos: 35, inativos: 14 },
             { id: 58, nome: "NATALIA MARIA DA SILVA SANTOS", total: 45, ativos: 27, inativos: 18 },
-            { id: 59, nome: "NATAN EVANGELISTA DA SILVA", total: 50, ativos: 31, inativos: 19 },
-            { id: 60, nome: "NAYARA C. DA SILVA CORDEIRO", total: 72, ativos: 36, inativos: 36 },
+            { id: 59, nome: "NATAN EVANGELISTA DA SILVA", total: 49, ativos: 31, inativos: 18 },
+            { id: 60, nome: "NAYARA C. DA SILVA CORDEIRO", total: 73, ativos: 37, inativos: 36 },
             { id: 61, nome: "PATRICIA F. CAVALHEIRO", total: 69, ativos: 27, inativos: 42 },
-            { id: 62, nome: "PEDRO EULA MARQUES", total: 61, ativos: 31, inativos: 30 },
-            { id: 63, nome: "RAVENA PEREIRA LEITE", total: 71, ativos: 27, inativos: 44 },
-            { id: 64, nome: "RENATA MENEZES DE JESUS", total: 69, ativos: 37, inativos: 32 },
-            { id: 65, nome: "RODRIGO SOARES DIAS", total: 81, ativos: 34, inativos: 47 },
-            { id: 66, nome: "ROSANE SOARES DE OLIVEIRA", total: 42, ativos: 28, inativos: 14 },
-            { id: 67, nome: "SILVIA R. DE SOUZA A. DE SOUZA", total: 51, ativos: 28, inativos: 23 },
+            { id: 62, nome: "PEDRO EULA MARQUES", total: 60, ativos: 32, inativos: 28 },
+            { id: 63, nome: "RAVENA PEREIRA LEITE", total: 71, ativos: 28, inativos: 43 },
+            { id: 64, nome: "RENATA MENEZES DE JESUS", total: 68, ativos: 37, inativos: 31 },
+            { id: 65, nome: "RODRIGO SOARES DIAS", total: 80, ativos: 34, inativos: 46 },
+            { id: 66, nome: "ROSANE SOARES DE OLIVEIRA", total: 43, ativos: 28, inativos: 15 },
+            { id: 67, nome: "SILVIA R. DE SOUZA A. DE SOUZA", total: 52, ativos: 32, inativos: 20 },
             { id: 68, nome: "TEYVIANNE RIBEIRO DE OLIVEIRA", total: 44, ativos: 24, inativos: 20 },
-            { id: 69, nome: "VALERIA PEREIRA DA SILVA", total: 81, ativos: 31, inativos: 50 },
-            { id: 70, nome: "YGOR SARKIS C TEIXEIRA", total: 69, ativos: 37, inativos: 32 }
+            { id: 69, nome: "VALERIA PEREIRA DA SILVA", total: 82, ativos: 31, inativos: 51 },
+            { id: 70, nome: "YGOR SARKIS C TEIXEIRA", total: 71, ativos: 37, inativos: 34 }
         ];
 
         const processedData = tutorData.map(t => {
